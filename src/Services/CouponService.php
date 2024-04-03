@@ -186,12 +186,13 @@ class CouponService extends CouponValidityService
         $amount     = $data["amount"];
         $userId     = $data["user_id"];
         $orderId    = $data["order_id"];
+        $vendorId  = isset($data['vendor_id']) ? $data['vendor_id'] : null;  //  this value is missing
         $deviceName = isset($data['device_name']) ? $data['device_name'] : null;
         $ipaddress  = isset($data['ip_address']) ? $data['ip_address'] : null;
         $skipFields = isset($data['skip']) ? $data['skip'] : [];
 
         // check applied coupon code code validity
-        $couponValidity = $this->validity($code, $amount, $userId, $deviceName, $ipaddress, $skipFields);
+        $couponValidity = $this->validity($code, $amount, $userId, $deviceName, $ipaddress, $vendorId, $skipFields);
 
         if (isset($couponValidity->id) && $couponValidity->id) {
             try {
